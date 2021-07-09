@@ -1,36 +1,27 @@
 <?php 
-    require_once __DIR__ . '/credit-card.php';
-    require_once __DIR__ . '/user.php';
-    require_once __DIR__ . '/user-premium.php';
+    require_once __DIR__ . '/products.php';
 
     class Seller {
-        public $username;
-        public $id;
-        
+        public $sellerUsername;
+        public $product;
 
         // constructor
-        function __construct($username = "", $id = "") {
-            $this->username = $username;
-            $this->id = $id;
-
+        function __construct($sellerUsername = "") {
+            $this->sellerUsername = $sellerUsername;
+            $this->product = null; //init
         }
 
         // methods
-        function insertCreditCard($cardNumber, $expDate, $cvc) {
-            $this->creditCard = new CreditCard($cardNumber, $expDate, $cvc);
+        public function newProduct($sellerUsername, $productName, $category, $price) {
+            $this->product = new Product($sellerUsername, $productName, $category, $price);
         }
-
-        function insertUserData($username, $email, $password) {
-            $this->userData = new User($username, $email, $password);
-        }
-
-        function insertPremiumData($premiumLevel) {
-            $this->premiumData = new PremiumData($premiumLevel);
-        }
+        
     }
 
-    $person1 = new Person("Mario", "Rossi", "Via Marco Polo 7", "54321", "Roma");
-    $person1->insertCreditCard("0121251285", "07/21", "842");
-    $person1->insertUserData("mario.rossi", "mariorossi@email.it", "mariorossi1982");
-    $person1->insertPremiumData(2);
-    var_dump($person1);
+    $seller1 = new Seller("Shop1");
+    $seller1->newProduct("Shop1", "Matita HB", "Cancelleria", 1.5);
+    var_dump($seller1);
+
+    $seller2 = new Seller("Shop 2");
+    $seller2->newProduct("Shop2", "Padella 22", "Cucina", 25);
+    var_dump($seller2);
